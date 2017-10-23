@@ -1,20 +1,29 @@
 package com.designPatterns.ACLDatabaseSecurity.model.entity;
 
-import javax.persistence.Column;
+import com.designPatterns.ACLDatabaseSecurity.aspect.MyAspect;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 
 @Entity
+@Component
 public class Salary {
 
-	private long salaryId;
-	private double salaryValue;
+    private long id;
+    private double value;
 
-	// @Id
-	// @GeneratedValue(strategy = GenerationType.AUTO)@Id
+    @Override
+    public String toString() {
+        return "Salary{" +
+                "id=" + id +
+                ", value=" + value +
+                '}';
+    }
+
+    // @Id
+    // @GeneratedValue(strategy = GenerationType.AUTO)@Id
 	// @GeneratedValue(strategy = GenerationType.SEQUENCE,
 	// generator="salaries_id_seq")
 	// @SequenceGenerator(name="salaries_id_seq", sequenceName="salaries_id_seq",
@@ -24,20 +33,21 @@ public class Salary {
 	// @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@GeneratedValue
-	public long getSalaryId() {
-		return salaryId;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public void setSalaryId(long salaryId) {
-		this.salaryId = salaryId;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public double getSalaryValue() {
-		return salaryValue;
-	}
+    public double getValue() {
+        return value;
+    }
 
-	public void setSalaryValue(double salaryValue) {
-		this.salaryValue = salaryValue;
-	}
+    @MyAspect
+    public void setValue(double value) {
+        this.value = value;
+    }
 
 }
