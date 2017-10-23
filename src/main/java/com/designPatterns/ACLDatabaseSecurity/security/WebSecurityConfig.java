@@ -17,9 +17,11 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsService userDetailsService;
 
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.authorizeRequests().antMatchers("/webjars/**").permitAll()
                 .anyRequest().authenticated()
+
                 .and().formLogin()
+
                 .loginPage("/login")
                 .defaultSuccessUrl("/salary")
                 .loginPage("/login").permitAll();
