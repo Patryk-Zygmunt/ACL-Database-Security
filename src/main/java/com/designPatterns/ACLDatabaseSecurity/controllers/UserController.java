@@ -22,7 +22,6 @@ public class UserController {
 
     @RequestMapping(value = "/salary", method = RequestMethod.GET)
     public String showSalaries(Model model) {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("salary", salaryService.getSalaries());
         model.addAttribute("logged_user", authentication.getName());

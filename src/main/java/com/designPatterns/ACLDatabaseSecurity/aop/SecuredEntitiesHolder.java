@@ -9,10 +9,13 @@ import javax.persistence.criteria.Root;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
+/**
+ * Ładowanie nazwy oznaczonego entities do odpowiedniego seta w zależności od wybranego typu zabezpieczenia.
+ * Do wyboru select (s), update (u), delete (d)
+ */
 @Component
 @Scope("singleton")
-public class GuardedEntitiesHolder {
+public class SecuredEntitiesHolder {
     private Set<String> selectProtectedEntities = null;
     private Set<String> updateProtectedEntities = null;
     private Set<String> deleteProtectedEntities = null;
@@ -49,7 +52,7 @@ public class GuardedEntitiesHolder {
     }
 
     private void setDelete(Set<Class<?>> annotated){
-        deleteProtectedEntities = filterEntityAnnotatedWithMode(annotated, Modes.UPDATE);
+        deleteProtectedEntities = filterEntityAnnotatedWithMode(annotated, Modes.DELETE);
     }
 
     private Set<String> filterEntityAnnotatedWithMode(Set<Class<?>> annotated, Modes mode){
@@ -64,10 +67,18 @@ public class GuardedEntitiesHolder {
     }
 
     public boolean isRootSelectProtected(Root root){
-        return isEntityProtected(root.getModel().getName());
+        return isRootProtected(root, selectProtectedEntities);
     }
 
-    public boolean isEntityProtected(String name){
-        return selectProtectedEntities.stream().anyMatch(x -> x.equals(name));
+    public boolean isRootUpdateProtected(Root root){
+        return isRootProtected(root, updateProtectedEntities);
+    }
+
+    public boolean isRootDeleteProtected(Root root){
+        return isRootProtected(root, deleteProtectedEntities);
+    }
+
+    public boolean isRootProtected(Root root, Set<String> protectedRoots){
+        return protectedRoots.stream().anyMatch(x -> x.equals(root.getModel().getName()));
     }
 }

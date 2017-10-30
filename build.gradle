@@ -31,6 +31,10 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile ("org.webjars:bootstrap:3.3.7")
     compile ("org.springframework.boot:spring-boot-starter-web")
+	compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
+//	compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.6.11'
+//	compile group: 'org.aspectj', name: 'aspectjrt', version: '1.6.11'
+    compile group: 'com.google.guava', name: 'guava', version: '11.0.2'
     runtime('org.postgresql:postgresql')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

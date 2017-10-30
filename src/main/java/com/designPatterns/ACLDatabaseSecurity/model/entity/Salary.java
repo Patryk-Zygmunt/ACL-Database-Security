@@ -1,14 +1,14 @@
 package com.designPatterns.ACLDatabaseSecurity.model.entity;
 
-import com.designPatterns.ACLDatabaseSecurity.aspect.MyAspect;
+import com.designPatterns.ACLDatabaseSecurity.aop.ProtectedEntity;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@ProtectedEntity(mode = "s")
 @Entity
-@Component
 public class Salary {
 
     private long id;
@@ -22,15 +22,6 @@ public class Salary {
                 '}';
     }
 
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.AUTO)@Id
-	// @GeneratedValue(strategy = GenerationType.SEQUENCE,
-	// generator="salaries_id_seq")
-	// @SequenceGenerator(name="salaries_id_seq", sequenceName="salaries_id_seq",
-	// allocationSize=1)
-	// @Column(name = "SALARY_ID")
-	// @Id
-	// @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@GeneratedValue
     public long getId() {
@@ -45,7 +36,6 @@ public class Salary {
         return value;
     }
 
-    @MyAspect
     public void setValue(double value) {
         this.value = value;
     }

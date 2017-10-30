@@ -5,6 +5,7 @@ package com.designPatterns.ACLDatabaseSecurity.controllers;
  */
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.jpa.EntityManagerHolder;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
