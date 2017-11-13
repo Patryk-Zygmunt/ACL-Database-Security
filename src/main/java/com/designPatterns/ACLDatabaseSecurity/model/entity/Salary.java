@@ -3,16 +3,27 @@ package com.designPatterns.ACLDatabaseSecurity.model.entity;
 import com.designPatterns.ACLDatabaseSecurity.aop.ProtectedEntity;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.function.BiConsumer;
 
-@ProtectedEntity(mode = "s")
+@ProtectedEntity(mode = "sud")
 @Entity
+@NamedQuery(name = "Salary.findUsingNamedQueryByValueBefore",
+        query = "select s from Salary s where s.value < ?1")
 public class Salary {
+    @Transient
+    BiConsumer selectInjection;
 
     private long id;
     private double value;
+
+    public Salary(long id, double value) {
+        this.id = id;
+        this.value = value;
+    }
+
+    public Salary() {
+    }
 
     @Override
     public String toString() {

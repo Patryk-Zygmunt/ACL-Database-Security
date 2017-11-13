@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 @Component
 @Scope("singleton")
-public class SecuredEntitiesHolder {
+public class SecuredEntities {
     private Set<String> selectProtectedEntities = null;
     private Set<String> updateProtectedEntities = null;
     private Set<String> deleteProtectedEntities = null;
@@ -78,7 +78,32 @@ public class SecuredEntitiesHolder {
         return isRootProtected(root, deleteProtectedEntities);
     }
 
-    public boolean isRootProtected(Root root, Set<String> protectedRoots){
+    public boolean isRootSelectProtected(String name){
+        return isRootProtected(name, selectProtectedEntities);
+    }
+
+    public boolean isRootUpdateProtected(String name){
+        return isRootProtected(name, updateProtectedEntities);
+    }
+
+    public boolean isRootDeleteProtected(String name){
+        return isRootProtected(name, deleteProtectedEntities);
+    }
+
+    private boolean isRootProtected(Root root, Set<String> protectedRoots){
         return protectedRoots.stream().anyMatch(x -> x.equals(root.getModel().getName()));
+    }
+
+    private boolean isRootProtected(String name, Set<String> protectedRoots){
+        return protectedRoots.stream().anyMatch(x->x.equals(name));
+    }
+
+    public boolean isRootProtected(String name, String action){
+        switch (action){
+            case "select" : return isRootSelectProtected(name);
+            case "update" : return isRootUpdateProtected(name);
+            case "delete" : return isRootDeleteProtected(name);
+            default: return false;
+        }
     }
 }

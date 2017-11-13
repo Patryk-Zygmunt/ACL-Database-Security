@@ -3,6 +3,7 @@ package com.designPatterns.ACLDatabaseSecurity.service;
 import com.designPatterns.ACLDatabaseSecurity.model.entity.Salary;
 import com.designPatterns.ACLDatabaseSecurity.repositories.SalaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.query.JpaQueryMethod;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +17,12 @@ public class SalaryService {
     @Autowired
     SalaryRepository salaryRepository;
 
-
     public List<Salary> getSalaries() {
         return salaryRepository.findAll();
+    }
+
+    public void deleteSalary(Long id){
+        salaryRepository.delete(id);
     }
 
 
