@@ -33,4 +33,5 @@ dependencies {
     compile ("org.springframework.boot:spring-boot-starter-web")
     runtime('org.postgresql:postgresql')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile files('gradle/libs/Cover-Of-Darkness-all.jar')
 }

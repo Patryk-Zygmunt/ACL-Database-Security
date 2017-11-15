@@ -1,6 +1,6 @@
 package com.designPatterns.ACLDatabaseSecurity.service;
 
-import com.designPatterns.ACLDatabaseSecurity.model.entity.Salary;
+import com.designPatterns.ACLDatabaseSecurity.model.entity.SalaryEntity;
 import com.designPatterns.ACLDatabaseSecurity.repositories.SalaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class SalaryService {
     SalaryRepository salaryRepository;
 
 
-    public List<Salary> getSalaries() {
+    public List<SalaryEntity> getSalaries() {
         return salaryRepository.findAll();
     }
 
