@@ -28,6 +28,9 @@ public class UserDetails implements org.springframework.security.core.userdetail
         this.user = user;
 
     }
+    public UserEntity getUser(){
+        return user;
+    }
 
     @Override
     public String getPassword() {
@@ -58,4 +61,5 @@ public class UserDetails implements org.springframework.security.core.userdetail
     public boolean isEnabled() {
         return true;
     }
+
 }
