@@ -20,20 +20,20 @@ import javax.persistence.PrimaryKeyJoinColumn;
  */
 @Entity
 public class UserEntity {
-	private long id;
+	private long userId;
 	private String username;
 	private String password;
 	private Set<RoleEntity> roles;
-	private SalaryEntity salary;
+//	private SalaryEntity salary;
 
 	@Id
 	@GeneratedValue
-	public long getId() {
-		return id;
+	public long getUserId() {
+		return userId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 	@Column(name = "username")
@@ -55,7 +55,13 @@ public class UserEntity {
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	@JoinTable(
+			name = "users_roles", 
+//			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "userId"), 
+//			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "roleId")
+			joinColumns = @JoinColumn(name = "user_id"), 
+			inverseJoinColumns = @JoinColumn(name = "role_id")
+	)
 	public Set<RoleEntity> getRoles() {
 		return roles;
 	}
@@ -64,18 +70,14 @@ public class UserEntity {
 		this.roles = roles;
 	}
 
-	@OneToOne(mappedBy = "user")
-	//@JoinColumn(name = "salary_id")
-//	@OneToOne(cascade = CascadeType.PERSIST, mappedBy = "user")
-//	@OneToOne
-//	@JoinColumn(name = "salary_id")
-	public SalaryEntity getSalary() {
-		return salary;
-	}
-
-	public void setSalary(SalaryEntity salary) {
-		this.salary = salary;
-	}
+//	@OneToOne(mappedBy = "user")
+//	public SalaryEntity getSalary() {
+//		return salary;
+//	}
+//
+//	public void setSalary(SalaryEntity salary) {
+//		this.salary = salary;
+//	}
 
 	
 

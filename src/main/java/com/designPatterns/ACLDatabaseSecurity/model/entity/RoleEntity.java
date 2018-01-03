@@ -1,31 +1,30 @@
 package com.designPatterns.ACLDatabaseSecurity.model.entity;
 
-import java.util.Collection;
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity
 public class RoleEntity {
-	private long id;
+	private long roleId;
 	private String name;
 	private Set<UserEntity> users;
 	private Set<PrivilegeEntity> privileges;
 
 	@Id
 	@GeneratedValue
-	public long getId() {
-		return id;
+	public long getRoleId() {
+		return roleId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setRoleId(long roleId) {
+		this.roleId = roleId;
 	}
 
 	public String getName() {
@@ -46,7 +45,13 @@ public class RoleEntity {
 	}
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "roles_privileges", joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
+	@JoinTable(
+			name = "roles_privileges", 
+//			joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "roleId"), 
+//			inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "privilageId")
+			joinColumns = @JoinColumn(name = "role_id"), 
+			inverseJoinColumns = @JoinColumn(name = "privilege_id")
+	)
 	public Set<PrivilegeEntity> getPrivileges() {
 		return privileges;
 	}

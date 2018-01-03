@@ -17,7 +17,7 @@ public class SalaryEntity {
 
 	private long id;
 	private double value;
-	private UserEntity user;
+//	private UserEntity user;
 
 	@Id
 	@GeneratedValue
@@ -39,22 +39,16 @@ public class SalaryEntity {
 	}
 
 	// @OneToOne(cascade = CascadeType.MERGE)
+	// @OneToOne//(mappedBy = "salary")
+//	@OneToOne // (mappedBy="salary")
+//	@JoinColumn(name = "user_id")
+//	public UserEntity getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(UserEntity user) {
+//		this.user = user;
+//	}
 
-//	@OneToOne//(mappedBy = "salary")
-	@OneToOne//(mappedBy="salary")
-    @JoinColumn(name = "user_id")
-	public UserEntity getUser() {
-		return user;
-	}
-
-	public void setUser(UserEntity user) {
-		this.user = user;
-	}
-
-	@Override
-	public String toString() {
-		return "SalaryEntity [id=" + id + ", value=" + value + ", user=" + user + "]";
-	}
-	
 	
 }
