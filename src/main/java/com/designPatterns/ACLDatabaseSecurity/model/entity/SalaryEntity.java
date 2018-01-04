@@ -1,18 +1,15 @@
 package com.designPatterns.ACLDatabaseSecurity.model.entity;
 
-import com.designPatterns.ACLDatabaseSecurity.aspect.MyAspect;
-import org.springframework.stereotype.Component;
+import com.designPatterns.ACLDatabaseSecurity.plugin.annotations.ProtectedEntity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@Component
+@ProtectedEntity
 public class SalaryEntity {
 
 	private long id;
@@ -33,7 +30,6 @@ public class SalaryEntity {
 		return value;
 	}
 
-	@MyAspect
 	public void setValue(double value) {
 		this.value = value;
 	}

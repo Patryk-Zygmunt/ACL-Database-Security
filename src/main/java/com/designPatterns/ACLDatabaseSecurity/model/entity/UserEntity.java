@@ -1,9 +1,6 @@
 package com.designPatterns.ACLDatabaseSecurity.model.entity;
 
-import java.util.Collection;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +10,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 
 /**
  * Created by Linus on 21.10.2017.
