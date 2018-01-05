@@ -11,6 +11,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
@@ -54,14 +55,16 @@ public class SecurityInjectionsBuilder {
     private BiConsumer<CriteriaQueryImpl, Root> makeConsumer(BiFunction<CriteriaBuilder,UserEntity,
             BiFunction<CriteriaQueryImpl, Root, Predicate>> function){
 
-        return  (query, root) -> {
-            Predicate p = function.apply(cb, ((UserDetails) SecurityContextHolder.
-                    getContext().getAuthentication().getPrincipal()).getUser()).apply(query,root);
-            if (query.getRestriction() != null)
-                query.where(p, query.getRestriction());
-            else
-                query.where(p);
-        };
+        return  (query, root) -> Optional.ofNullable(SecurityContextHolder.getContext().
+                getAuthentication()).
+                ifPresent(auth ->{
+                    UserEntity usr = ((UserDetails) auth.getPrincipal()).getUser();
+                    Predicate p = function.apply(cb, usr).apply(query, root);
+                    if (query.getRestriction() != null)
+                        query.where(p, query.getRestriction());
+                    else
+                        query.where(p);
+            });
     }
 
     public SecurityInjections getInjections(){
