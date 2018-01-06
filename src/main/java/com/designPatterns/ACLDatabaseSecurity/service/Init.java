@@ -66,6 +66,7 @@ public class Init {
 		cod.i("SALARIES: ", salaryRepository.findAll());
 	}
 
+	@Transactional
 	private void createExampleData() {
 		// USERS AND SALARIES
 		UserEntity emp = createUser("emp", "emp");
@@ -80,6 +81,7 @@ public class Init {
 		UserEntity admin = createUser("admin", "admin");
 		SalaryEntity admSalary = createSalary(18000.00, admin);
 		cod.i("INIT SALARIES: ", Arrays.asList(empSalary, emp2Salary, emp3Salary, suvSalary, admSalary));
+		cod.i("INIT USERS: ", Arrays.asList(emp, emp2, emp3, groupSupervisor, admin));
 
 		// EMPLOYEE
 		PrivilegeEntity empPrivilege = createPrivilege("EMPLOYEE_PRIVILEGE");
@@ -89,6 +91,7 @@ public class Init {
 
 		// GROUP SUPERVISOR
 		PrivilegeEntity suvPrivilegeEmp = createPrivilege("EMPLOYEE_PRIVILEGE");
+		cod.i("SUV", suvPrivilegeEmp);
 		Set<SalariesSet> suvSSs1 = createSalariesSets(suvPrivilegeEmp, new HashSet<>(Arrays.asList(suvSalary)));
 		RoleEntity suvRole1 = createRole(new HashSet<>(Arrays.asList(suvPrivilegeEmp)), "EMPLOYEE");
 
@@ -108,23 +111,30 @@ public class Init {
 		Set<SalariesSet> admSSs2 = createSalariesSets(admPrivilegeAdm,
 				new HashSet<>(Arrays.asList(empSalary, emp2Salary, emp3Salary, suvSalary, admSalary)));
 		RoleEntity admRole2 = createRole(new HashSet<>(Arrays.asList(admPrivilegeAdm)), "ADMIN");
-		cod.i("INIT PRIVILEGES: ", Arrays.asList(empPrivilege, suvPrivilegeEmp, suvPrivilegeSuv, admPrivilegeEmp, admPrivilegeAdm));
+		cod.i("INIT PRIVILEGES: ",
+				Arrays.asList(empPrivilege, suvPrivilegeEmp, suvPrivilegeSuv, admPrivilegeEmp, admPrivilegeAdm));
 
 		admin = setUserRole(admin, new HashSet<>(Arrays.asList(admRole1, admRole2)));
+
 	}
 
+	@Transactional
 	private Set<SalariesSet> createSalariesSets(PrivilegeEntity privilege, Set<SalaryEntity> salaries) {
 		Set<SalariesSet> sss = new HashSet<>();
 		for (SalaryEntity s : salaries) {
 			SalariesSet ss = new SalariesSet();
 			ss.setPrivilegeId(privilege.getPrivilegeId());
 			ss.setSalaryId(s.getId());
-			sss.add(salariesSetRepository.save(ss));
+			ss = salariesSetRepository.save(ss);
+			salariesSetRepository.flush();
+			sss.add(ss);
+
 		}
 
 		return sss;
 	}
 
+	@Transactional
 	private UserEntity createUser(String username, String password) {
 		UserEntity user = userRepository.findByUsername(username);
 		if (user == null) {
@@ -132,28 +142,34 @@ public class Init {
 			user.setPassword(password);
 			user.setUsername(username);
 			user = userRepository.save(user);
+			userRepository.flush();
 		}
 		return user;
 	}
 
+	@Transactional
 	private SalaryEntity createSalary(double value, UserEntity user) {
 
 		SalaryEntity s = new SalaryEntity();
 		s.setValue(value);
 		s.setUser(user);
+		salaryRepository.flush();
 		return salaryRepository.save(s);
 
 	}
 
+	@Transactional
 	private UserEntity setUserRole(UserEntity u, Set<RoleEntity> roles) {
 		UserEntity user = userRepository.findOne(u.getUserId());
 		if (user != null) {
 			user.setRoles(roles);
 			user = userRepository.save(user);
+			userRepository.flush();
 		}
 		return user;
 	}
 
+	@Transactional
 	private PrivilegeEntity createPrivilege(String privilegeName) {
 		// PrivilegeEntity privilege = privilegeRepository.findByName(privilegeName);
 		// if (privilege == null) {
@@ -161,19 +177,22 @@ public class Init {
 		privilege.setName(privilegeName);
 		// privilege.setSalaries(authority);
 		privilege = privilegeRepository.save(privilege);
+		privilegeRepository.flush();
 		// }
 
 		return privilege;
 	}
 
+	@Transactional
 	private RoleEntity createRole(Set<PrivilegeEntity> privileges, String roleName) {
-		RoleEntity role = roleRepository.findByName(roleName);
-		if (role == null) {
-			role = new RoleEntity();
-			role.setName(roleName);
-			role.setPrivileges(privileges);
-			role = roleRepository.save(role);
-		}
+		// RoleEntity role = roleRepository.findByName(roleName);
+		// if (role == null) {
+		RoleEntity role = new RoleEntity();
+		role.setName(roleName);
+		role.setPrivileges(privileges);
+		role = roleRepository.save(role);
+		roleRepository.flush();
+		// }
 		return role;
 	}
 
