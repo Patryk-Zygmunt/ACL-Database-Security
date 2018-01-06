@@ -16,7 +16,7 @@ public class PrivilegeEntity {
 	private long privilegeId;
 	private String name;
 	private Set<RoleEntity> roles;
-	private Set<SalaryEntity> salaries;
+//	private Set<SalaryEntity> salaries;
 
 	@Id
 	@GeneratedValue
@@ -45,18 +45,18 @@ public class PrivilegeEntity {
 		this.roles = roles;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "salaries_set", 
-			joinColumns = @JoinColumn(name = "privilage_id"), 
-			inverseJoinColumns = @JoinColumn(name = "salary_id")
-	)
-	public Set<SalaryEntity> getSalaries() {
-		return salaries;
-	}
-
-	public void setSalaries(Set<SalaryEntity> salaries) {
-		this.salaries = salaries;
-	}
+//	@ManyToMany(fetch = FetchType.EAGER)
+//	@JoinTable(
+//			name = "salaries_set", 
+//			joinColumns = @JoinColumn(name = "privilege_id"), 
+//			inverseJoinColumns = @JoinColumn(name = "salary_id")
+//	)
+//	public Set<SalaryEntity> getSalaries() {
+//		return salaries;
+//	}
+//
+//	public void setSalaries(Set<SalaryEntity> salaries) {
+//		this.salaries = salaries;
+//	}
 
 }
