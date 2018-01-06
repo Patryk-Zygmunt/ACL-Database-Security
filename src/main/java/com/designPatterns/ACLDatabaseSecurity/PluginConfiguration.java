@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import javax.persistence.EntityManager;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 @Configuration
@@ -24,12 +25,14 @@ public class PluginConfiguration {
     public SecurityInjections getInjections(){
         return new SecurityInjectionsBuilder(entityManager).
                 setDefaultInjection((cb, user) -> (query, root) -> {
-
-                    List ids = user.getRoles().stream().
-                            flatMap(roleEntity -> roleEntity.getPrivileges().stream()).
-                            flatMap(privilegeEntity -> privilegeEntity.getSalaries().stream()).
-                            map(SalaryEntity::getId).collect(Collectors.toList());
-                    return root.get("id").in(ids);
+                	List<Long> ids = new ArrayList<>();
+                //TODO
+//                    List ids = user.getRoles().stream().
+//                            flatMap(roleEntity -> roleEntity.getPrivileges().stream()).
+//                            flatMap(privilegeEntity -> privilegeEntity.getSalaries().stream()).
+//                            map(SalaryEntity::getId).collect(Collectors.toList());
+                    
+                    return cb.equal(root.get("id"),2);
 
                 }).
                 getInjections();

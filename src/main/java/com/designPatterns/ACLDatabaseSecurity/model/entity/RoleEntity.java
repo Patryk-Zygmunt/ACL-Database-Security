@@ -48,7 +48,7 @@ public class RoleEntity {
 	@JoinTable(
 			name = "roles_privileges", 
 //			joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "roleId"), 
-//			inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "privilageId")
+//			inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "privilegeId")
 			joinColumns = @JoinColumn(name = "role_id"), 
 			inverseJoinColumns = @JoinColumn(name = "privilege_id")
 	)
