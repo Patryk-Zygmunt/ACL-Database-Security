@@ -1,5 +1,6 @@
 package com.designPatterns.ACLDatabaseSecurity.plugin;
 
+import com.designPatterns.ACLDatabaseSecurity.plugin.structures.QueryData;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -21,23 +22,25 @@ public class SecurityInjectionAspect {
     SecurityInjections securityInjections;
 
     @Pointcut("execution(* javax.persistence.EntityManager.createQuery(..))")
-    public void queryCreationJoin(){
+    public void queryCreationJoin() {
     }
 
 
     /**
      * Used when repository method is findby, removeby or deleteby
+     *
      * @param criteriaQuery
      */
     @Before("queryCreationJoin() && args(criteriaQuery)")
     @SuppressWarnings("unchecked")
-    public void selectSecurityInjection(CriteriaQueryImpl criteriaQuery){
-        if(Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) return;
+    public void selectSecurityInjection(CriteriaQueryImpl criteriaQuery) {
+        if (Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) return;
         long startTime = System.currentTimeMillis();
         criteriaQuery.getRoots().
                 stream().
                 filter(root -> entities.isRootProtected((Root) root)).
-                forEach(root -> securityInjections.injectToQuery(criteriaQuery, (Root) root));
+                forEach(root -> securityInjections.injectToQuery(new QueryData(criteriaQuery, (Root) root),
+                        entities.getEntityData((Root) root)));
 
         long estimatedTime = System.currentTimeMillis() - startTime;
         System.out.println(estimatedTime);

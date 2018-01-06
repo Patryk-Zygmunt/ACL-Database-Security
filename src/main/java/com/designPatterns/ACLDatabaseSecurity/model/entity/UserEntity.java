@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
 
 /**
  * Created by Linus on 21.10.2017.

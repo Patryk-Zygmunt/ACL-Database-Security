@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-@ProtectedEntity
+@ProtectedEntity(set = SalariesSet.class, setId = "salaryId")
 public class SalaryEntity {
 
 	private long id;

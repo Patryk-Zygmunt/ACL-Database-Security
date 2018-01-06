@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 /**
  * Created by Linus on 21.10.2017.
@@ -17,14 +18,16 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsService userDetailsService;
 
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/webjars/**").permitAll()
+        http
+                .authorizeRequests()
+                .antMatchers("/webjars/**")
+                .permitAll()
                 .anyRequest().authenticated()
-
-                .and().formLogin()
-
+                .and()
+                .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/salary")
-                .loginPage("/login").permitAll();
+                .permitAll();
     }
 
 
