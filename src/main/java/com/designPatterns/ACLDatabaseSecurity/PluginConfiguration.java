@@ -32,7 +32,7 @@ public class PluginConfiguration {
 //                            flatMap(privilegeEntity -> privilegeEntity.getSalaries().stream()).
 //                            map(SalaryEntity::getId).collect(Collectors.toList());
                     
-                    return root.get("id").in(ids);
+                    return cb.equal(root.get("id"),2);
 
                 }).
                 getInjections();
