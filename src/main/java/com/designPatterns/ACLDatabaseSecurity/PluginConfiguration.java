@@ -47,7 +47,7 @@ public class PluginConfiguration {
                     Subquery sq = data.getQueryData().getQuery().subquery(data.getEntityData().getSetClass());
                     Root from = sq.from(data.getEntityData().getSetClass());
                     sq.select(from.get(data.getEntityData().getSetId()));
-                    sq.where(from.get("privilageId").in(ids));
+                    sq.where(from.get("privilegeId").in(ids));
 
                     return data.getQueryData().getRoot().get(data.getEntityData().getClassId()).in(sq);
                 }).
