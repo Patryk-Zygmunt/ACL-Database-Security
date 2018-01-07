@@ -8,7 +8,7 @@
           rel="stylesheet" media="screen"/>
 </head>
 <body>
-<table class=" table table-hover">
+<table class="table table-hover">
 
     <h3>Logged User:<p th:text="${logged_user}"></p></h3>
     <br/>
@@ -28,7 +28,11 @@
     </tr>
 
 </table>
-
+<br/>
+<br/>
+<a href="#" th:href="@{/logout}">
+    <button class="btn btn-info" type="button">Logout</button>
+</a>
 
 </body>
 </html>
