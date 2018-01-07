@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+</head>
+<body>
+<b>Wrong password or access denied</b> <br/>
+<a href="/login.html" th:href="@{/login}">
+    <button class="btn btn-info" type="button">Try again</button>
+</a>
+
+
+</body>
+</html>

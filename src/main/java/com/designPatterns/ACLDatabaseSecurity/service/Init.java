@@ -30,7 +30,7 @@ import java.util.Set;
 public class Init {
 	private static final List<Double> SALARY_VALUES = Arrays.asList(1400.00, 14000.50, 1900.99, 5600.00, 2400.24);
 	// nie zmieniajcie głębokości na większą niż 2, bo hibernate się to nie podoba
-	private static final COD cod = CODFactory.setLevelOfDepression(4);
+	private static final COD cod = CODFactory.setLevelOfDepression(2);
 
 	private final SalaryRepository salaryRepository;
 	private final UserRepository userRepository;

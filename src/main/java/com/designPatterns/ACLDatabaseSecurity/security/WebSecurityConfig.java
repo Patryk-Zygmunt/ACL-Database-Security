@@ -20,14 +20,16 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/webjars/**")
+                .antMatchers("/webjars/**", "/login", "/", "/failure")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/salary")
-                .permitAll();
+                .failureUrl("/failure")
+                .and()
+                .logout().logoutSuccessUrl("/login");
     }
 
 
