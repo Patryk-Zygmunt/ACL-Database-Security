@@ -3,10 +3,10 @@ package com.designPatterns.ACLDatabaseSecurity.plugin.structures;
 import javax.persistence.criteria.CriteriaBuilder;
 
 public class InjectionData {
-    QueryData queryData;
-    CriteriaBuilder criteriaBuilder;
-    ProtectedEntityData entityData;
-    Object principal;
+    private QueryData queryData;
+    private CriteriaBuilder criteriaBuilder;
+    private ProtectedEntityData entityData;
+    private Object principal;
 
     public InjectionData(QueryData queryData, CriteriaBuilder criteriaBuilder, ProtectedEntityData entityData, Object principal) {
         this.queryData = queryData;
