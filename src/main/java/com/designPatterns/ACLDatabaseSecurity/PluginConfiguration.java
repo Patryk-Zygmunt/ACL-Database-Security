@@ -38,7 +38,7 @@ public class PluginConfiguration {
                     Subquery sq = data.queryData.getQuery().subquery(data.entityData.getSetClass());
                     Root from = sq.from(data.entityData.getSetClass());
                     sq.select(from.get(data.entityData.getSetId()));
-                    sq.where(from.get("privilegeId").in(getPrivileges(data.principal)));
+                    sq.where(from.get(data.entityData.getPrivilegeId()).in(getPrivileges(data.principal)));
 
                     return data.queryData.getRoot().get(data.entityData.getClassId()).in(sq);
                 })
@@ -51,7 +51,8 @@ public class PluginConfiguration {
                     return data.sqlEntityData.alias + "." + data.entityData.getClassId() + " IN (SELECT "
                             + data.uniqueAlias + "." + data.entityData.getSetId() + " FROM "
                             + data.entityData.getSetClass().getSimpleName() + " " + data.uniqueAlias + " WHERE "
-                            + data.uniqueAlias + ".privilegeId IN (" + joiner.toString() + "))";
+                            + data.uniqueAlias + "." +data.entityData.getPrivilegeId()
+                            + " IN (" + joiner.toString() + "))";
                 })
                 .getQueryInjections();
     }
