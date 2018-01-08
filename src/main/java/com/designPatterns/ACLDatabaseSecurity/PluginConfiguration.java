@@ -48,7 +48,7 @@ public class PluginConfiguration {
                     getPrivileges(data.principal)
                             .forEach(x -> joiner.add(x.toString()));
 
-                    return "WHERE " + data.sqlEntityData.alias + "." + data.entityData.getClassId() + " IN (SELECT "
+                    return data.sqlEntityData.alias + "." + data.entityData.getClassId() + " IN (SELECT "
                             + data.uniqueAlias + "." + data.entityData.getSetId() + " FROM "
                             + data.entityData.getSetClass().getSimpleName() + " " + data.uniqueAlias + " WHERE "
                             + data.uniqueAlias + ".privilegeId IN (" + joiner.toString() + "))";
