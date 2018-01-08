@@ -1,10 +1,7 @@
 package com.designPatterns.ACLDatabaseSecurity;
 
 import com.designPatterns.ACLDatabaseSecurity.model.entity.PrivilegeEntity;
-import com.designPatterns.ACLDatabaseSecurity.model.entity.SalariesSet;
-import com.designPatterns.ACLDatabaseSecurity.plugin.SecuredEntities;
-import com.designPatterns.ACLDatabaseSecurity.plugin.SecurityInjectionAspect;
-import com.designPatterns.ACLDatabaseSecurity.plugin.SecurityInjections;
+import com.designPatterns.ACLDatabaseSecurity.plugin.*;
 import com.designPatterns.ACLDatabaseSecurity.plugin.builders.SecuredEntitiesBuilder;
 import com.designPatterns.ACLDatabaseSecurity.plugin.builders.SecurityInjectionsBuilder;
 import com.designPatterns.ACLDatabaseSecurity.security.UserDetails;
@@ -17,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 
@@ -33,25 +31,38 @@ public class PluginConfiguration {
 
     @Bean
     @Scope("singleton")
+    @SuppressWarnings("unchecked")
     public SecurityInjections getInjections() {
         return new SecurityInjectionsBuilder(entityManager).
-                setDefaultInjection(data -> {
+                setDefaultQueryInjection(data -> {
+                    Subquery sq = data.queryData.getQuery().subquery(data.entityData.getSetClass());
+                    Root from = sq.from(data.entityData.getSetClass());
+                    sq.select(from.get(data.entityData.getSetId()));
+                    sq.where(from.get("privilegeId").in(getPrivileges(data.principal)));
 
-                    Set<Long> ids = (((UserDetails) data.getPrincipal()).getUser())
-                            .getRoles()
-                            .stream()
-                            .flatMap(roleEntity -> roleEntity.getPrivileges().stream())
-                            .map(PrivilegeEntity::getPrivilegeId)
-                            .collect(Collectors.toSet());
+                    return data.queryData.getRoot().get(data.entityData.getClassId()).in(sq);
+                })
+                .setDefaultSqlInjection(data -> {
 
-                    Subquery sq = data.getQueryData().getQuery().subquery(data.getEntityData().getSetClass());
-                    Root from = sq.from(data.getEntityData().getSetClass());
-                    sq.select(from.get(data.getEntityData().getSetId()));
-                    sq.where(from.get("privilegeId").in(ids));
+                    StringJoiner joiner = new StringJoiner(", ");
+                    getPrivileges(data.principal)
+                            .forEach(x -> joiner.add(x.toString()));
 
-                    return data.getQueryData().getRoot().get(data.getEntityData().getClassId()).in(sq);
-                }).
-                getInjections();
+                    return "WHERE " + data.sqlEntityData.alias + "." + data.entityData.getClassId() + " IN (SELECT "
+                            + data.uniqueAlias + "." + data.entityData.getSetId() + " FROM "
+                            + data.entityData.getSetClass().getSimpleName() + " " + data.uniqueAlias + " WHERE "
+                            + data.uniqueAlias + ".privilegeId IN (" + joiner.toString() + "))";
+                })
+                .getQueryInjections();
+    }
+
+    private Set<Long> getPrivileges(Object principal) {
+        return (((UserDetails) principal).getUser())
+                .getRoles()
+                .stream()
+                .flatMap(roleEntity -> roleEntity.getPrivileges().stream())
+                .map(PrivilegeEntity::getPrivilegeId)
+                .collect(Collectors.toSet());
     }
 
     @Bean

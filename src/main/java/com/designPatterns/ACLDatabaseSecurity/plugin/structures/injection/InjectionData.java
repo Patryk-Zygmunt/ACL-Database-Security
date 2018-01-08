@@ -1,33 +1,19 @@
-package com.designPatterns.ACLDatabaseSecurity.plugin.structures;
+package com.designPatterns.ACLDatabaseSecurity.plugin.structures.injection;
+
+import com.designPatterns.ACLDatabaseSecurity.plugin.structures.ProtectedEntityData;
+import com.designPatterns.ACLDatabaseSecurity.plugin.structures.QueryData;
 
 import javax.persistence.criteria.CriteriaBuilder;
 
 public class InjectionData {
-    private QueryData queryData;
-    private CriteriaBuilder criteriaBuilder;
-    private ProtectedEntityData entityData;
-    private Object principal;
+    public CriteriaBuilder criteriaBuilder;
+    public ProtectedEntityData entityData;
+    public Object principal;
 
-    public InjectionData(QueryData queryData, CriteriaBuilder criteriaBuilder, ProtectedEntityData entityData, Object principal) {
-        this.queryData = queryData;
+    public InjectionData(CriteriaBuilder criteriaBuilder, ProtectedEntityData entityData, Object principal) {
         this.criteriaBuilder = criteriaBuilder;
         this.entityData = entityData;
         this.principal = principal;
     }
 
-    public QueryData getQueryData() {
-        return queryData;
-    }
-
-    public CriteriaBuilder getCriteriaBuilder() {
-        return criteriaBuilder;
-    }
-
-    public ProtectedEntityData getEntityData() {
-        return entityData;
-    }
-
-    public Object getPrincipal() {
-        return principal;
-    }
 }
