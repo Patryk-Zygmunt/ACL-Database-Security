@@ -27,7 +27,7 @@ public class SecuredEntitiesBuilder {
                         .stream()
                         .map(cl -> {
                             ProtectedEntity ann = cl.getAnnotation(ProtectedEntity.class);
-                            return new ProtectedEntityData(cl, ann.set(), ann.setId(), ann.classId());
+                            return new ProtectedEntityData(cl, ann.set(), ann.setId(), ann.classId(), ann.privilegeId());
                         })
                         .collect(Collectors.toSet())
         );

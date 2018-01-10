@@ -10,4 +10,6 @@ public @interface ProtectedEntity {
     String setId();
 
     String classId() default "id";
+
+    String privilegeId() default "privilegeId";
 }
