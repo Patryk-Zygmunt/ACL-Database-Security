@@ -40,9 +40,9 @@ public class SecuredEntities {
 
         Set<SqlQueryData> result = new HashSet<>();
         int counter = 0;
-        for(ProtectedEntityData data: selectProtectedEntities)
-            for(SqlEntityData d: entities){
-                if (d.root.equals(data.getEntityClass().getSimpleName())){
+        for (ProtectedEntityData data : selectProtectedEntities)
+            for (SqlEntityData d : entities) {
+                if (d.root.equals(data.getEntityClass().getSimpleName())) {
                     result.add(new SqlQueryData(d, counter++, data));
                     break;
                 }

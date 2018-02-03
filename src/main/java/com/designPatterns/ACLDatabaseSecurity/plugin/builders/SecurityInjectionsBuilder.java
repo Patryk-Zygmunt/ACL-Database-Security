@@ -29,7 +29,7 @@ public class SecurityInjectionsBuilder {
     }
 
     private Map<Class<?>, Function<SqlQueryData, String>> sqlInjections = new HashMap<>();
-    private Function <SqlQueryData, String> defaultSqlInjection = data -> "";
+    private Function<SqlQueryData, String> defaultSqlInjection = data -> "";
 
     private Map<Class<?>, BiConsumer<QueryData, ProtectedEntityData>> queryInjections = new HashMap<>();
     private BiConsumer<QueryData, ProtectedEntityData> defaultQueryInjection = (query, root) -> {
@@ -46,7 +46,7 @@ public class SecurityInjectionsBuilder {
         return this;
     }
 
-    public SecurityInjectionsBuilder setDefaultSqlInjection(Function<SqlInjectionData, String> function){
+    public SecurityInjectionsBuilder setDefaultSqlInjection(Function<SqlInjectionData, String> function) {
         defaultSqlInjection = makeSqlFunction(function);
         return this;
     }
@@ -63,12 +63,12 @@ public class SecurityInjectionsBuilder {
 //        return this;
 //    }
 
-    private Function<SqlQueryData, String> makeSqlFunction(Function<SqlInjectionData,String> function){
+    private Function<SqlQueryData, String> makeSqlFunction(Function<SqlInjectionData, String> function) {
         return data ->
                 function.apply(
                         new SqlInjectionData(cb, data.entityData,
                                 SecurityContextHolder.getContext().getAuthentication().getPrincipal(),
-                                data.sqlData, "aop"+data.number)
+                                data.sqlData, "aop" + data.number)
                 );
     }
 

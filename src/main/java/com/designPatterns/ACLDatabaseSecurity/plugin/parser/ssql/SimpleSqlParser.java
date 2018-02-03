@@ -20,7 +20,6 @@ public class SimpleSqlParser implements SqlParser {
     }
 
 
-
     @Override
     public Set<SqlEntityData> getRoots() {
         return parse(rootsPattern.matcher(sql));
@@ -61,7 +60,7 @@ public class SimpleSqlParser implements SqlParser {
     private String injectIfWhereClauseNotExist(String injection) throws SqlParserException {
         Matcher m = rootsPattern.matcher(sql);
         if (m.find()) {
-            String [] result = sql.split("(?<=" + m.group() + ")");
+            String[] result = sql.split("(?<=" + m.group() + ")");
             if (result.length > 1)
                 return result[0] + " WHERE " + injection + result[1];
             else

@@ -1,6 +1,6 @@
 package com.designPatterns.ACLDatabaseSecurity.plugin.structures;
 
-public class SqlQueryData{
+public class SqlQueryData {
     public SqlEntityData sqlData;
     public int number;
     public ProtectedEntityData entityData;

@@ -13,7 +13,7 @@ public class SecurityInjections {
     private Map<Class<?>, BiConsumer<QueryData, ProtectedEntityData>> queryInjections;
     private BiConsumer<QueryData, ProtectedEntityData> defaultQueryInjection;
 
-    private Map<Class<?>, Function<SqlQueryData,String>> sqlInjections;
+    private Map<Class<?>, Function<SqlQueryData, String>> sqlInjections;
     private Function<SqlQueryData, String> defaultSqlInjection;
 
     public SecurityInjections(Map<Class<?>, BiConsumer<QueryData, ProtectedEntityData>> injections,

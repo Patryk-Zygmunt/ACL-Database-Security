@@ -9,7 +9,7 @@ public class SqlEntityData {
         this.alias = alias;
     }
 
-    public SqlEntityData(String [] args){
+    public SqlEntityData(String[] args) {
         this.root = args[0];
         this.alias = args[1];
     }

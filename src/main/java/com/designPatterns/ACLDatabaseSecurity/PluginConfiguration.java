@@ -53,7 +53,7 @@ public class PluginConfiguration {
                     return data.sqlEntityData.alias + "." + data.entityData.getClassId() + " IN (SELECT "
                             + data.uniqueAlias + "." + data.entityData.getSetId() + " FROM "
                             + data.entityData.getSetClass().getSimpleName() + " " + data.uniqueAlias + " WHERE "
-                            + data.uniqueAlias + "." +data.entityData.getPrivilegeId()
+                            + data.uniqueAlias + "." + data.entityData.getPrivilegeId()
                             + " IN (" + joiner.toString() + "))";
                 })
                 .getQueryInjections();
