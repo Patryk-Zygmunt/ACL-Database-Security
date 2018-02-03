@@ -1,5 +1,7 @@
-package com.designPatterns.ACLDatabaseSecurity.plugin.parser;
+package com.designPatterns.ACLDatabaseSecurity.plugin.parser.jsql;
 
+import com.designPatterns.ACLDatabaseSecurity.plugin.parser.SqlParser;
+import com.designPatterns.ACLDatabaseSecurity.plugin.parser.SqlParserException;
 import com.designPatterns.ACLDatabaseSecurity.plugin.structures.SqlEntityData;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Expression;
@@ -13,13 +15,13 @@ import net.sf.jsqlparser.statement.select.Select;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class SqlParserImpl implements SqlParser {
+public class JSqlParser implements SqlParser {
 
     private String sql;
     private Select select;
     private PlainSelect plainSelect;
 
-    public SqlParserImpl(String sql) throws SqlParserException {
+    public JSqlParser(String sql) throws SqlParserException {
         this.sql = sql;
         try {
             Statement statement = CCJSqlParserUtil.parse(sql);

@@ -4,6 +4,8 @@ import com.designPatterns.ACLDatabaseSecurity.model.entity.PrivilegeEntity;
 import com.designPatterns.ACLDatabaseSecurity.plugin.*;
 import com.designPatterns.ACLDatabaseSecurity.plugin.builders.SecuredEntitiesBuilder;
 import com.designPatterns.ACLDatabaseSecurity.plugin.builders.SecurityInjectionsBuilder;
+import com.designPatterns.ACLDatabaseSecurity.plugin.parser.jsql.JSqlSqlParserCreator;
+import com.designPatterns.ACLDatabaseSecurity.plugin.parser.ssql.SimpleSqlParserCreator;
 import com.designPatterns.ACLDatabaseSecurity.security.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -77,6 +79,6 @@ public class PluginConfiguration {
 
     @Bean
     public SecurityInjectionAspect getAspect() {
-        return new SecurityInjectionAspect();
+        return new SecurityInjectionAspect(new JSqlSqlParserCreator());
     }
 }

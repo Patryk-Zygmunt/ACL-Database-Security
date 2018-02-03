@@ -1,6 +1,6 @@
 package com.designPatterns.ACLDatabaseSecurity.plugin;
 
-import com.designPatterns.ACLDatabaseSecurity.plugin.parser.SqlParserImpl;
+import com.designPatterns.ACLDatabaseSecurity.plugin.parser.SqlParserCreator;
 import com.designPatterns.ACLDatabaseSecurity.plugin.parser.SqlParser;
 import com.designPatterns.ACLDatabaseSecurity.plugin.structures.QueryData;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,10 +21,16 @@ public class SecurityInjectionAspect {
 
 
     @Autowired
-    SecuredEntities entities;
+    private SecuredEntities entities;
 
     @Autowired
-    SecurityInjections securityInjections;
+    private SecurityInjections securityInjections;
+
+    private SqlParserCreator sqlParserCreator;
+
+    public SecurityInjectionAspect(SqlParserCreator sqlParserCreator) {
+        this.sqlParserCreator = sqlParserCreator;
+    }
 
     /**
      * Pointcut used by @Query and repository methods
@@ -65,7 +71,7 @@ public class SecurityInjectionAspect {
         if (ifUserSession()) return jp.proceed(new Object[]{jpaqlString});
         long startTime = System.currentTimeMillis();
 
-        SqlParser parser = new SqlParserImpl(jpaqlString);
+        SqlParser parser = sqlParserCreator.createParser(jpaqlString);
         StringJoiner sj = new StringJoiner(" AND ");
         entities.getEntityData(parser.getRootsAndJoins())
                 .forEach(data -> sj.add(securityInjections.getSqlInjection(data)));
