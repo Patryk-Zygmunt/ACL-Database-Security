@@ -1,29 +1,24 @@
 buildscript {
-	ext {
-		springBootVersion = '1.5.8.RELEASE'
-	}
-	repositories {
-		mavenCentral()
-	}
-	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+    ext { springBootVersion = '1.5.10.RELEASE' }
+    repositories { mavenCentral() }
+    dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") }
 }
+
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 
-group = 'com.designPatterns'
-version = '0.0.1-SNAPSHOT'
+jar {
+    baseName = 'acl-security-example'
+    version = '0.0.1-SNAPSHOT'
+}
 sourceCompatibility = 1.8
 
-repositories {
-	mavenCentral()
-}
-
+repositories { mavenCentral() }
 
 dependencies {
+    compile project(':acl-security-autoinjection-plugin')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile ('org.springframework.boot:spring-boot-starter-aop')
     compile("org.springframework.boot:spring-boot-starter-security")
@@ -31,11 +26,10 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile ("org.webjars:bootstrap:3.3.7")
     compile ("org.springframework.boot:spring-boot-starter-web")
-	compile group: 'org.reflections', name: 'reflections', version: '0.9.10'
+
     runtime('org.postgresql:postgresql')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	compile files('gradle/libs/Cover-Of-Darkness-all.jar')
-// https://mvnrepository.com/artifact/com.github.jsqlparser/jsqlparser
-	compile group: 'com.github.jsqlparser', name: 'jsqlparser', version: '1.1'
+	compile files('../gradle/libs/Cover-Of-Darkness-all.jar')
 
 }
+

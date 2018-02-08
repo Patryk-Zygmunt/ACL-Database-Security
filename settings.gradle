@@ -1,0 +1,5 @@
+rootProject.name = 'ACL-Database-Security'
+mainClassName='com.designPatterns.ACLDatabaseSecurity.AclDatabaseSecurityApplication'
+
+include 'acl-security-app'
+include 'acl-security-autoinjection-plugin'
