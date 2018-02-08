@@ -1,0 +1,5 @@
+rootProject.name = 'ACL-Database-Security'
+
+include 'plugin'
+include 'application'
+

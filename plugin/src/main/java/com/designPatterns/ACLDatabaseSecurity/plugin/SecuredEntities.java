@@ -7,9 +7,7 @@ import com.designPatterns.ACLDatabaseSecurity.plugin.structures.SqlQueryData;
 import javax.persistence.criteria.Root;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class SecuredEntities {
     private Set<ProtectedEntityData> selectProtectedEntities;
