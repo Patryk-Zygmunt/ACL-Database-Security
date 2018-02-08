@@ -18,7 +18,7 @@ sourceCompatibility = 1.8
 repositories { mavenCentral() }
 
 dependencies {
-    compile project(':plugin')
+    compile project(':acl-security-autoinjection-plugin')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile ('org.springframework.boot:spring-boot-starter-aop')
     compile("org.springframework.boot:spring-boot-starter-security")
