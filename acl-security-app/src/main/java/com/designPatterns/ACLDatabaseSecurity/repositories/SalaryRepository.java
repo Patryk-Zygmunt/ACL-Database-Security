@@ -8,7 +8,7 @@ import java.util.List;
 
 @Repository
 public interface SalaryRepository extends JpaRepository<SalaryEntity, Long> {
-    @Query("SELECT s FROM SalaryEntity s WHERE s.id < '7'")
+//    @Query("SELECT s FROM SalaryEntity s WHERE s.id < '7'")
     @Override
     List<SalaryEntity> findAll();
 }

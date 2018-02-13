@@ -19,7 +19,6 @@ public class UserEntity {
 	private String username;
 	private String password;
 	private Set<RoleEntity> roles;
-//	private SalaryEntity salary;
 
 	@Id
 	@GeneratedValue
@@ -51,9 +50,7 @@ public class UserEntity {
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
-			name = "users_roles", 
-//			joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "userId"), 
-//			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "roleId")
+			name = "users_roles",
 			joinColumns = @JoinColumn(name = "user_id"), 
 			inverseJoinColumns = @JoinColumn(name = "role_id")
 	)
@@ -64,16 +61,5 @@ public class UserEntity {
 	public void setRoles(Set<RoleEntity> roles) {
 		this.roles = roles;
 	}
-
-//	@OneToOne(mappedBy = "user")
-//	public SalaryEntity getSalary() {
-//		return salary;
-//	}
-//
-//	public void setSalary(SalaryEntity salary) {
-//		this.salary = salary;
-//	}
-
-	
 
 }

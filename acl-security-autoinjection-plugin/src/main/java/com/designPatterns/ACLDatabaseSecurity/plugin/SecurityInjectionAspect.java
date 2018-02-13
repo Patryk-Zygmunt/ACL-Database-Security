@@ -50,7 +50,6 @@ public class SecurityInjectionAspect {
     public void selectSecurityInjection(CriteriaQueryImpl criteriaQuery) {
         if (ifUserSession()) return;
         long startTime = System.currentTimeMillis();
-
         criteriaQuery.getRoots().
                 stream().
                 filter(root -> entities.isRootProtected((Root) root)).

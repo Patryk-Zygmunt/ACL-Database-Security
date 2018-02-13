@@ -17,12 +17,10 @@ import java.util.stream.Collectors;
 
 public class JSqlParser implements SqlParser {
 
-    private String sql;
     private Select select;
     private PlainSelect plainSelect;
 
     public JSqlParser(String sql) throws SqlParserException {
-        this.sql = sql;
         try {
             Statement statement = CCJSqlParserUtil.parse(sql);
             if (statement instanceof Select) {

@@ -34,9 +34,7 @@ public class SalaryEntity {
 		this.value = value;
 	}
 
-	// @OneToOne(cascade = CascadeType.MERGE)
-	// @OneToOne//(mappedBy = "salary")
-	@OneToOne // (mappedBy="salary")
+	@OneToOne
 	@JoinColumn(name = "user_id")
 	public UserEntity getUser() {
 		return user;
