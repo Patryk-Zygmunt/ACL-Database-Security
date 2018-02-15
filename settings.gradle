@@ -1,0 +1,4 @@
+rootProject.name = 'ACL-Database-Security'
+
+include 'acl-security-app'
+include 'acl-security-autoinjection-plugin'
